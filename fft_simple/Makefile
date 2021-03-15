@@ -1,24 +1,31 @@
-# Makefile for C implementation
-# Author : Pierre-Henri Horrein
+EXEC = nand
 
-CC=gcc
+SRC = $(wildcard *.cpp)
+OBJ= $(SRC:.cpp=.o)
+HEA= $(SRC:.cpp=.h)
 
-SRCDIR=.
-INCDIR=.
-OBJDIR=.
+CC=g++
+#SYSTEMC=/opt/systemc
+SYSTEMC=/opt/systemc/systemc-2.3.3
+LDFLAGS= -L$(SYSTEMC)/lib-linux64 -Wl,-rpath=$(SYSTEMC)/lib-linux64 -lsystemc -lm
+CXXFLAGS= -W -Wall -pedantic -g -I$(SYSTEMC)/include -DDEBUG_SYSTEMC
 
-SRC = $(wildcard $(SRCDIR)/*.c)
-TMP_OBJ = $(subst .c,.o,$(SRC))
-NEW_OBJ = $(subst $(SRCDIR)/,$(OBJDIR)/,$(TMP_OBJ))
-CFLAGS = -c -g -std=c99
+all: $(EXEC)
 
-all : test_fft
+$(EXEC): $(OBJ)
+	$(CC) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	$(CC) $(CFLAGS) -I$(INCDIR) -o $@ $<
-test_fft : $(NEW_OBJ)
-	$(CC) -I$(INCDIR) -o test_fft $(NEW_OBJ)
 
-clean: 
-	rm -f $(NEW_OBJ) test_fft
+%.o: %.cpp %.h
+	$(CC) -o $@ -c $< $(CXXFLAGS)
 
+.PHONY: clean mrproper
+
+clean:
+	rm -rf *.o
+
+mrproper: clean
+	rm -rf $(EXEC)
+
+tar : $(HEA) $(SRC)
+	tar -cvf $(EXEC).tar makefile $^

@@ -14,8 +14,8 @@ void FFT8::COMPORTEMENT(){
     while(1){
         i=0;
         while(i<16){
-            if(FFT8_IN.num.available>0){
-                data_in[i]=FFT8_IN.read();
+            if(FFT8_FIFO_IN.num.available>0){
+                data_in[i]=FFT8_FIFO_IN.read();
                 i++;
             }
             else
@@ -32,8 +32,8 @@ void FFT8::COMPORTEMENT(){
             data_out[i*2+1]=out[i].imag;
         }
          while(i<16){
-            if(FFT8_OUT.num_free>0){
-                data_out[i]=FFT8_OUT.read();
+            if(FFT8_FIFO_OUT.num_free>0){
+                data_out[i]=FFT8_FIFO_OUT.write();
                 i++;
             }
             else

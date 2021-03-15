@@ -15,11 +15,11 @@ void SOURCE::COMPORTEMENT(){
 	wait();
 	while(1){
 		if(!fileStream.eof){
-			if(FIFO_OUT.num_free()>1){
+			if(SRC_FIFO_OUT.num_free()>1){
 				fileStream>>tmp_valreal;
 				fileStream>>tmp_valimg;
-				FIFO_OUT.write(tmp_valreal);
-				FIFO_OUT.write(tmp_valimg);
+				SRC_FIFO_OUT.write(tmp_valreal);
+				SRC_FIFO_OUT.write(tmp_valimg);
 				wait();
 			}
 			else

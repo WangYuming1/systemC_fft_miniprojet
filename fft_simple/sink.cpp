@@ -15,9 +15,9 @@ void SINK::COMPORTEMENT(){
 	wait();
 	while(1){
 
-		if(FFT_OUT.num_available() > 1) {	
-			tmp_valreal =FFT_OUT.read();
-			tmp_valimg =FFT_OUT.read();
+		if(SINK_FFT_OUT.num_available() > 1) {	
+			tmp_valreal =SINK_FFT_OUT.read();
+			tmp_valimg =SINK_FFT_OUT.read();
 			fileStream << tmp_valreal;
 			fileStream << tmp_valimg;
 			cout << "writing" << endl;

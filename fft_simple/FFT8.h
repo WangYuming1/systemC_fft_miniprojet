@@ -5,8 +5,8 @@
 SC_MODULE(FFT8){
 	
 
-	sc_fifo_in<float> FFT8_IN;
-    sc_fifo_out<float> FFT8_OUT;
+	sc_fifo_in<float> FFT8_FIFO_IN;
+    sc_fifo_out<float> FFT8_FIFO_OUT;
 	sc_in_clk CLK;
 
 	SC_CTOR(SINK):

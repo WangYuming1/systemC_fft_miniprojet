@@ -5,7 +5,7 @@
 SC_MODULE(SINK){
 	
 
-	sc_fifo_in<float> FIFO_IN;
+	sc_fifo_in<float> SINK_FIFO_IN;
 	sc_in_clk CLK;
 
 	SC_CTOR(SINK):
