@@ -12,8 +12,6 @@ SC_MODULE(TOP){
     FFT8 fft8;
     SINK sink;
     SOURCE source;
-
-	
 	SC_CTOR(TOP):
         fft8("fft8"),
         source("source"),

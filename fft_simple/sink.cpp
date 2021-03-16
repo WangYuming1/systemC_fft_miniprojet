@@ -23,7 +23,7 @@ void SINK::COMPORTEMENT(){
 			cout<<" "<< tmp_valimg;
 		
 			fileStream << tmp_valreal;
-			fileStream << tmp_valimg;
+			fileStream <<" "<<tmp_valimg<< endl;
 		
 			cout << "writing" << endl;
 		}
@@ -31,4 +31,5 @@ void SINK::COMPORTEMENT(){
 			cout<<"pas assez data sink";
 		wait();
 	}
+	
 }

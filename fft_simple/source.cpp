@@ -24,7 +24,7 @@ void SOURCE::COMPORTEMENT(){
 			}
 			
 			else
-				cout<<"pas assez d'espace,attends"<<endl;
+				cout<<"pas assez d'espace,attends src"<<endl;
 		}
 		else{
 			cout<<"fin de fichier"<<endl;
