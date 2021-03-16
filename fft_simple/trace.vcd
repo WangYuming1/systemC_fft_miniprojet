@@ -1,0 +1,512 @@
+$date
+     Mar 16, 2021       03:13:20
+$end
+
+$version
+ SystemC 2.3.3-Accellera --- Feb  9 2021 03:11:34
+$end
+
+$timescale
+     1 ns
+$end
+
+$scope module SystemC $end
+$scope module mainTop $end
+$var real    1  aaaaa  SRC_2_FFT_0       $end
+$var real    1  aaaab  SRC_2_FFT_1       $end
+$var real    1  aaaac  SRC_2_FFT_2       $end
+$var real    1  aaaad  SRC_2_FFT_3       $end
+$var real    1  aaaae  SRC_2_FFT_4       $end
+$var real    1  aaaaf  SRC_2_FFT_5       $end
+$var real    1  aaaag  SRC_2_FFT_6       $end
+$var real    1  aaaah  SRC_2_FFT_7       $end
+$var real    1  aaaai  SRC_2_FFT_8       $end
+$var real    1  aaaaj  SRC_2_FFT_9       $end
+$var real    1  aaaak  SRC_2_FFT_10       $end
+$var real    1  aaaal  SRC_2_FFT_11       $end
+$var real    1  aaaam  SRC_2_FFT_12       $end
+$var real    1  aaaan  SRC_2_FFT_13       $end
+$var real    1  aaaao  SRC_2_FFT_14       $end
+$var real    1  aaaap  SRC_2_FFT_15       $end
+$var real    1  aaaaq  FFT_2_SINK_0       $end
+$var real    1  aaaar  FFT_2_SINK_1       $end
+$var real    1  aaaas  FFT_2_SINK_2       $end
+$var real    1  aaaat  FFT_2_SINK_3       $end
+$var real    1  aaaau  FFT_2_SINK_4       $end
+$var real    1  aaaav  FFT_2_SINK_5       $end
+$var real    1  aaaaw  FFT_2_SINK_6       $end
+$var real    1  aaaax  FFT_2_SINK_7       $end
+$var real    1  aaaay  FFT_2_SINK_8       $end
+$var real    1  aaaaz  FFT_2_SINK_9       $end
+$var real    1  aaaba  FFT_2_SINK_10       $end
+$var real    1  aaabb  FFT_2_SINK_11       $end
+$var real    1  aaabc  FFT_2_SINK_12       $end
+$var real    1  aaabd  FFT_2_SINK_13       $end
+$var real    1  aaabe  FFT_2_SINK_14       $end
+$var real    1  aaabf  FFT_2_SINK_15       $end
+$upscope $end
+$upscope $end
+$enddefinitions  $end
+
+$comment
+All initial values are dumped below at time 0 sec = 0 timescale units.
+$end
+
+$dumpvars
+r2011 aaaaa
+r2011 aaaab
+r6.594295324105558e+22 aaaac
+r7.555081327053433e+31 aaaad
+r3.559244355763391e-17 aaaae
+r1.832023514993055e+25 aaaaf
+r6.593495034451775e+22 aaaag
+r7.555081327053433e+31 aaaah
+r0 aaaai
+r0 aaaaj
+r0 aaaak
+r0 aaaal
+r0 aaaam
+r0 aaaan
+r0 aaaao
+r0 aaaap
+r0 aaaaq
+r0 aaaar
+r6.594295324105558e+22 aaaas
+r7.555081327053433e+31 aaaat
+r3.559244355763391e-17 aaaau
+r1.832023514993055e+25 aaaav
+r6.593495034451775e+22 aaaaw
+r7.555081327053433e+31 aaaax
+r0 aaaay
+r0 aaaaz
+r0 aaaba
+r0 aaabb
+r0 aaabc
+r0 aaabd
+r0 aaabe
+r0 aaabf
+$end
+
+#2
+r0 aaaaa
+r2011 aaaac
+r2011 aaaad
+
+#4
+r0 aaaab
+r2011 aaaae
+r2011 aaaaf
+
+#6
+r0 aaaac
+r2011 aaaag
+r2011 aaaah
+
+#8
+r0 aaaad
+r2011 aaaai
+r2011 aaaaj
+
+#10
+r0 aaaae
+r2011 aaaak
+r2011 aaaal
+
+#12
+r0 aaaaf
+r2011 aaaam
+r2011 aaaan
+
+#14
+r0 aaaag
+r2011 aaaao
+r2011 aaaap
+
+#16
+r1 aaaaa
+r1 aaaab
+r0 aaaah
+
+#18
+r0 aaaai
+
+#20
+r0 aaaaj
+
+#22
+r0 aaaak
+
+#24
+r0 aaaal
+
+#26
+r0 aaaam
+
+#28
+r0 aaaan
+
+#30
+r0 aaaao
+
+#32
+r0 aaaap
+
+#34
+r16088 aaaaq
+
+#36
+r16088 aaaar
+
+#38
+r0 aaaaq
+r0 aaaar
+r0 aaaas
+
+#40
+r0 aaaat
+
+#42
+r0 aaaau
+
+#44
+r0 aaaav
+
+#46
+r0 aaaaw
+
+#48
+r0 aaaax
+
+#66
+r0 aaaaa
+
+#68
+r0 aaaab
+
+#70
+r456 aaaab
+
+#74
+r120 aaaac
+r234 aaaad
+
+#78
+r234 aaaae
+r120 aaaaf
+
+#82
+r120 aaaag
+
+#86
+r-120 aaaaj
+
+#90
+r-120 aaaak
+r-234 aaaal
+
+#94
+r-234 aaaam
+r-456 aaaan
+
+#98
+r-120 aaaao
+r-768 aaaap
+r1 aaaaq
+
+#100
+r1 aaaar
+
+#102
+r0 aaaaq
+r0 aaaar
+r1 aaaas
+
+#104
+r1 aaaat
+
+#106
+r0 aaaas
+r0 aaaat
+r1 aaaau
+
+#108
+r1 aaaav
+
+#110
+r0 aaaau
+r0 aaaav
+r1 aaaaw
+
+#112
+r1 aaaax
+
+#114
+r0 aaaaw
+r0 aaaax
+r1 aaaay
+
+#116
+r1 aaaaz
+
+#118
+r0 aaaay
+r0 aaaaz
+r1 aaaba
+
+#120
+r1 aaabb
+
+#122
+r0 aaaba
+r0 aaabb
+r1 aaabc
+
+#124
+r1 aaabd
+
+#126
+r0 aaabc
+r0 aaabd
+r1 aaabe
+
+#128
+r1 aaabf
+
+#130
+r0 aaabe
+r0 aaabf
+
+#132
+r0 aaaab
+
+#134
+r123 aaaaa
+r29 aaaab
+r0 aaaac
+
+#136
+r0 aaaad
+
+#138
+r34 aaaac
+r34 aaaad
+r0 aaaae
+
+#140
+r0 aaaaf
+
+#142
+r-23 aaaae
+r85 aaaaf
+r0 aaaag
+
+#146
+r12 aaaag
+r206 aaaah
+
+#148
+r0 aaaaj
+
+#150
+r45 aaaai
+r336 aaaaj
+r0 aaaak
+
+#152
+r0 aaaal
+
+#154
+r593 aaaal
+r0 aaaam
+
+#156
+r0 aaaan
+
+#158
+r67 aaaam
+r823 aaaan
+r0 aaaao
+
+#160
+r0 aaaap
+
+#162
+r134 aaaao
+r422 aaaap
+
+#164
+r-768 aaaar
+
+#166
+r0 aaaar
+r1449.984008789062 aaaas
+
+#168
+r-443.5433044433594 aaaat
+
+#170
+r0 aaaas
+r0 aaaat
+r768 aaaau
+
+#172
+r672 aaaav
+
+#174
+r0 aaaau
+r0 aaaav
+r297.9839782714844 aaaaw
+
+#176
+r916.7207641601562 aaaax
+
+#178
+r0 aaaaw
+r0 aaaax
+
+#180
+r768 aaaaz
+
+#182
+r0 aaaaz
+r-297.9839782714844 aaaba
+
+#184
+r659.5432739257812 aaabb
+
+#186
+r0 aaaba
+r0 aaabb
+r-768 aaabc
+
+#188
+r672 aaabd
+
+#190
+r0 aaabc
+r0 aaabd
+r-1449.984008789062 aaabe
+
+#192
+r1171.279174804688 aaabf
+
+#194
+r0 aaaaa
+r0 aaabe
+r0 aaabf
+
+#196
+r0 aaaab
+
+#198
+r134 aaaaa
+r422 aaaab
+r0 aaaac
+
+#200
+r0 aaaad
+
+#202
+r0 aaaae
+
+#204
+r0 aaaaf
+
+#206
+r0 aaaag
+
+#208
+r0 aaaah
+
+#210
+r0 aaaai
+
+#212
+r0 aaaaj
+
+#216
+r0 aaaal
+
+#218
+r0 aaaam
+
+#220
+r0 aaaan
+
+#222
+r0 aaaao
+
+#224
+r0 aaaap
+
+#226
+r392 aaaaq
+
+#228
+r2528 aaaar
+
+#230
+r0 aaaaq
+r0 aaaar
+r-1097.699096679688 aaaas
+
+#232
+r-397.3122253417969 aaaat
+
+#234
+r0 aaaas
+r0 aaaat
+r123 aaaau
+
+#236
+r-431 aaaav
+
+#238
+r0 aaaau
+r0 aaaav
+r157.68359375 aaaaw
+
+#240
+r-92.23697662353516 aaaax
+
+#242
+r0 aaaaw
+r0 aaaax
+r32 aaaay
+
+#244
+r18 aaaaz
+
+#246
+r0 aaaay
+r0 aaaaz
+r-222.3009033203125 aaaba
+
+#248
+r-36.68777084350586 aaabb
+
+#250
+r0 aaaba
+r0 aaabb
+r125 aaabc
+
+#252
+r-655 aaabd
+
+#254
+r0 aaabc
+r0 aaabd
+r1474.31640625 aaabe
+
+#256
+r-701.7630004882812 aaabf
+
+#258
+r0 aaaaa
+r0 aaabe
+r0 aaabf
+
+#260
+r0 aaaab
+
+#2000

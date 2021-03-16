@@ -7,8 +7,8 @@
 #include "source.h"
 SC_MODULE(TOP){
 	sc_clock clk;
-    sc_signal SRC_2_FFT;
-    sc_signal FFT_2_SINK;
+    sc_fifo<float> SRC_2_FFT;
+    sc_fifo<float> FFT_2_SINK;
     FFT8 fft8;
     SINK sink;
     SOURCE source;
@@ -17,8 +17,11 @@ SC_MODULE(TOP){
 	SC_CTOR(TOP):
         fft8("fft8"),
         source("source"),
-        sink("sink")
+        sink("sink"),
         clk("clk", 2, SC_NS, 0.5),
+        SRC_2_FFT("SRC_2_FFT",16),
+        FFT_2_SINK("FFT_2_SINK",16)
+
 		{
             source.SRC_FIFO_OUT(SRC_2_FFT);
             sink.SINK_FIFO_IN(FFT_2_SINK);
@@ -30,6 +33,6 @@ SC_MODULE(TOP){
 
 		}
 		
-	
+    
 };
 #endif

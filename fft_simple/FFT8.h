@@ -1,6 +1,6 @@
-#include <system.h>
-#ifndef "FFT8_H"
-#define "FFT8_H"
+#include <systemc.h>
+#ifndef FFT8_H
+#define FFT8_H
 
 SC_MODULE(FFT8){
 	
@@ -9,7 +9,7 @@ SC_MODULE(FFT8){
     sc_fifo_out<float> FFT8_FIFO_OUT;
 	sc_in_clk CLK;
 
-	SC_CTOR(SINK):
+	SC_CTOR(FFT8)
 		
 		{
 		SC_THREAD(COMPORTEMENT);

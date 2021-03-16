@@ -14,21 +14,23 @@ void SOURCE::COMPORTEMENT(){
 		cout<<"le fichier ne peut pas etre trouve"<<endl;
 	wait();
 	while(1){
-		if(!fileStream.eof){
+		if(!fileStream.eof()){
 			if(SRC_FIFO_OUT.num_free()>1){
 				fileStream>>tmp_valreal;
 				fileStream>>tmp_valimg;
 				SRC_FIFO_OUT.write(tmp_valreal);
 				SRC_FIFO_OUT.write(tmp_valimg);
-				wait();
+			
 			}
+			
 			else
 				cout<<"pas assez d'espace,attends"<<endl;
 		}
 		else{
-			cout<<"fin de fichier"<<endl
-			wait();
+			cout<<"fin de fichier"<<endl;
+			
 		}	
+		wait();
 
 	}
 	

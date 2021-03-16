@@ -12,14 +12,14 @@ void FFT8::COMPORTEMENT(){
     complex_t out[8];
 
     while(1){
-        i=0;
+        int i=0;
         while(i<16){
-            if(FFT8_FIFO_IN.num.available>0){
+            if(FFT8_FIFO_IN.num_available()>0){
                 data_in[i]=FFT8_FIFO_IN.read();
                 i++;
             }
             else
-                cout<<"pas assez data";
+                cout<<"pas assez data fft";
             wait();
         }
         for(i=0;i<8;i++){
@@ -31,13 +31,14 @@ void FFT8::COMPORTEMENT(){
             data_out[i*2]=out[i].real;
             data_out[i*2+1]=out[i].imag;
         }
+        i=0;
          while(i<16){
-            if(FFT8_FIFO_OUT.num_free>0){
-                data_out[i]=FFT8_FIFO_OUT.write();
+            if(FFT8_FIFO_OUT.num_free()>0){
+                FFT8_FIFO_OUT.write(data_out[i]);
                 i++;
             }
             else
-                cout<<"pas assez place";
+                cout<<"pas assez place fft";
             wait();
         } 
 
