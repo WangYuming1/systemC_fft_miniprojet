@@ -6,7 +6,7 @@
 #include "sink.h"
 #include "source.h"
 SC_MODULE(TOP){
-	sc_clock clk;
+	sc_in_clk clk;
     FFT8 fft8;
     SINK sink;
     SOURCE source;
@@ -21,8 +21,8 @@ SC_MODULE(TOP){
 	SC_CTOR(TOP):
         fft8("fft8"),
         source("source"),
-        sink("sink"),
-        clk("clk", 2, SC_NS, 0.5)
+        sink("sink")
+       
 		{
             source.in_real(src_2_fft_real);
             source.in_imag(src_2_fft_imag);

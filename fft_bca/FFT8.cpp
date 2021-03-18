@@ -11,43 +11,65 @@ void FFT8::COMPORTEMENT(){
     complex_t in[8];
     complex_t out[8];
     data_valid_out=false;
-    data_req_out=true;
+    data_req_out=false;
     while(1){
+        data_valid_out=false;
+        data_req_out=false;
         int i=0;
         while(i<15){
-            if(data_valid_in && data_req_in){
+            if(data_valid_in && data_req_out){
                 data_in[i]=in_real.read();
-                i++;
+            //    cout<< i <<"  "<<data_in[i] ;
+                i++;  
                 data_in[i]=in_imag.read();
+                data_req_out=false;
+                if(16==++i){
+                    break;
+                }
+            //    cout<<i <<"  "<<data_in[i] << endl;
             }
-            else
-                cout<<" src to fft data not valid ";
+            else {
+                data_req_out=true;
+            }
+                //cout<<" src to fft data not valid ";
             wait();
         }
-        data_req_out=false; // when the data is all in data_in , the request of the fft set to 0;
+        
+      //  data_req_out=false; // when the data is all in data_in , the request of the fft set to 0;
         for(i=0;i<8;i++){
             in[i].real=data_in[i*2];
             in[i].imag=data_in[i*2+1];
+        //    cout<<"   " <<in[i].real ;
+        //   cout<<"   " <<in[i].imag<<endl ;
         }
         fft(in,out);
         for(i=0;i<8;i++){
             data_out[i*2]=out[i].real;
+        //    cout<<"   " <<out[i].real ;
             data_out[i*2+1]=out[i].imag;
+        //    cout<<"   " <<out[i].imag<< endl ;
         }
+
         i=0;
         while(i<15){
-            if(data_req_in && (!data_valid_out)){
+            if(!data_valid_out){
                 out_real.write(data_out[i]);
                 i++;
                 out_imag.write(data_out[i]);
                 data_valid_out=true;
             }
-            else
-                cout<<"fft cal not finished";
+            else if (data_req_in){ 
+              //  cout<<"fft cal not finished";
                 data_valid_out=false;
+            }
+            else {
+                data_valid_out=false;
+               
+            }
+               
             wait();
         } 
-
+        
     }
 }
 
