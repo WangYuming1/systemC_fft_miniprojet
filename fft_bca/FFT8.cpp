@@ -6,18 +6,18 @@ using std::cout;
 using std::endl;
 
 void FFT8::COMPORTEMENT(){
-    double data_in[16];
-    double data_out[16];
-    complex_t in[8];
-    complex_t out[8];
-    data_valid_out=false;
+    double data_in[16];                         //to store the data received from the source
+    double data_out[16];                        //to send out the data calculated 
+    complex_t in[8];                            //store the data received with the format complex_t
+    complex_t out[8];                           //store the result by fft to send out
+    data_valid_out=false;                       //initialize the signal valid and req
     data_req_out=false;
     while(1){
-        data_valid_out=false;
-        data_req_out=true;
+        data_valid_out=false;                   //in each tranfer of 8 samples, initialize the signal valid to 0 and req to 1. 
+        data_req_out=true;                      
         int i=0;
         while(i<15){
-            if(data_valid_in && data_req_out){
+            if(data_valid_in && data_req_out){  //when the src has data valid and fft is available for the data, store the data in the data_in
                 data_in[i]=in_real.read();
                 i++;  
                 data_in[i]=in_imag.read();
@@ -25,38 +25,37 @@ void FFT8::COMPORTEMENT(){
             }
             wait();
         }
-        data_req_out=false; 
-        for(i=0;i<8;i++){
+
+        data_req_out=false;                     //after reading a set of 8 samples, set req to 0
+        
+        for(i=0;i<8;i++){                       // store the data to complex format
             in[i].real=data_in[i*2];
             in[i].imag=data_in[i*2+1];
         }
+
         fft(in,out);
-        for(i=0;i<8;i++){
+
+        for(i=0;i<8;i++){                       //store the complex result to send out
             data_out[i*2]=out[i].real;
             data_out[i*2+1]=out[i].imag;
         }
 
         i=0;
         while(i<15){
-            if(!data_valid_out){
+            if(!data_valid_out&&(data_req_in)){ //when data is valid and the sink can read data, write the data to the port
                 out_real.write(data_out[i]);
                 i++;
                 out_imag.write(data_out[i]);
-                data_valid_out=true;
+                data_valid_out=true;            //set valid to true after writing 2 data to the port
                 i++;
-            }
-            // else if (data_req_in){ 
-            //     data_valid_out=false;
-            // }
-            // else {
-            //     data_valid_out=false;
-            // }     
+            }  
             wait();
-            data_valid_out=false;
+            data_valid_out=false;               //set the valid to 0 after the next pos_clk
         } 
        
     }
 }
+
 complex_t weights[4] = W;
 
 void but(complex_t *weight,

@@ -16,13 +16,13 @@ void SINK::COMPORTEMENT(){
 	
 	int count=0;
 	while(1){
-		data_req=true;
+		data_req=true;								//data_req initialized to 1 in each reading data from fft.
 		if (count>31) {
 			cout<< "finish writing" <<endl;
 			data_req=false;
 			break;		
 		}
-		if(data_valid && data_req) {	
+		if(data_valid && data_req) {				//when the fft has valid data and the sink is available to read the data
 			tmp_valreal =out_real.read();
 			tmp_valimg =out_imag.read();
 			fileStream << tmp_valreal;
@@ -32,6 +32,6 @@ void SINK::COMPORTEMENT(){
 		}
 		
 		wait();
-		data_req=false;
+		data_req=false;								//after reading the data and writing in the fiche, at the pos_clk set data_req to 0;
 	}
 }
