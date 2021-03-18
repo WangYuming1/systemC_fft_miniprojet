@@ -21,6 +21,10 @@ int sc_main ( int argc, char *argv[])
 	sc_trace(tf,mainTop.fft_2_src_req,"fft_2_src_req");
 	sc_trace(tf,mainTop.fft_2_sink_valid,"fft_2_sink_valid");
 	sc_trace(tf,mainTop.sink_2_fft_req,"sink_2_fft_req");
+	sc_trace(tf,mainTop.fft8.in_real,"in_real");
+	sc_trace(tf,mainTop.fft8.in_imag,"in_imag");
+	sc_trace(tf,mainTop.sink.out_real,"out_real");
+	sc_trace(tf,mainTop.sink.out_imag,"out_imag");
 	sc_start(2000, SC_NS);
 	//fin
 	cout<< "Finished at" << sc_time_stamp() << "\n";

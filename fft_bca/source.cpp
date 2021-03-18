@@ -21,9 +21,6 @@ void SOURCE::COMPORTEMENT(){
 
 				fileStream>>tmp_valreal;
 				fileStream>>tmp_valimg;
-			
-			//	 cout<< " " << tmp_valimg ;
-			//	 cout<< " " << tmp_valreal<<"  "<< data_valid<< "   " << data_req  <<endl;
 				in_real.write(tmp_valreal);
 				in_imag.write(tmp_valimg);
 				data_valid=true;
@@ -31,15 +28,13 @@ void SOURCE::COMPORTEMENT(){
 			}
 			else if (data_req){
 				data_valid=false;
-				//cout<<"source data pas valid"<<endl;
 			}
 		}
 		else{
 			cout<<"fin de fichier"<<endl;
 			data_valid=false;
 			break;
-	
-		}	
+		}
 		wait();
 	}
 }

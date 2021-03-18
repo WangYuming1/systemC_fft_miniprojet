@@ -14,40 +14,26 @@ void FFT8::COMPORTEMENT(){
     data_req_out=false;
     while(1){
         data_valid_out=false;
-        data_req_out=false;
+        data_req_out=true;
         int i=0;
         while(i<15){
             if(data_valid_in && data_req_out){
                 data_in[i]=in_real.read();
-            //    cout<< i <<"  "<<data_in[i] ;
                 i++;  
                 data_in[i]=in_imag.read();
-                data_req_out=false;
-                if(16==++i){
-                    break;
-                }
-            //    cout<<i <<"  "<<data_in[i] << endl;
+                i++;
             }
-            else {
-                data_req_out=true;
-            }
-                //cout<<" src to fft data not valid ";
             wait();
         }
-        
-      //  data_req_out=false; // when the data is all in data_in , the request of the fft set to 0;
+        data_req_out=false; 
         for(i=0;i<8;i++){
             in[i].real=data_in[i*2];
             in[i].imag=data_in[i*2+1];
-        //    cout<<"   " <<in[i].real ;
-        //   cout<<"   " <<in[i].imag<<endl ;
         }
         fft(in,out);
         for(i=0;i<8;i++){
             data_out[i*2]=out[i].real;
-        //    cout<<"   " <<out[i].real ;
             data_out[i*2+1]=out[i].imag;
-        //    cout<<"   " <<out[i].imag<< endl ;
         }
 
         i=0;
@@ -57,23 +43,20 @@ void FFT8::COMPORTEMENT(){
                 i++;
                 out_imag.write(data_out[i]);
                 data_valid_out=true;
+                i++;
             }
-            else if (data_req_in){ 
-              //  cout<<"fft cal not finished";
-                data_valid_out=false;
-            }
-            else {
-                data_valid_out=false;
-               
-            }
-               
+            // else if (data_req_in){ 
+            //     data_valid_out=false;
+            // }
+            // else {
+            //     data_valid_out=false;
+            // }     
             wait();
+            data_valid_out=false;
         } 
-        
+       
     }
 }
-
-
 complex_t weights[4] = W;
 
 void but(complex_t *weight,
