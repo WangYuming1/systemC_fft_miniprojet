@@ -33,7 +33,7 @@ void SOURCE::COMPORTEMENT(){
 		else{
 			cout<<"fin de fichier"<<endl;
 			data_valid=false;
-			break;							//after writing all the data, jump out of the loop. Set the data_valid to 0
+			break;							//after writing all the data, jump out of the loop. Set the data_valid to 1
 		}
 		
 		wait();

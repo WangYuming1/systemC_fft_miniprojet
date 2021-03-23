@@ -32,5 +32,6 @@ void SINK::COMPORTEMENT(){
 		}
 		
 		wait();
+		data_req=false;								//after reading the data and writing in the fiche, at the pos_clk set data_req to 0;
 	}
 }

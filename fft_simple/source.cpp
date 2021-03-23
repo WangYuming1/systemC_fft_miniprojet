@@ -20,7 +20,6 @@ void SOURCE::COMPORTEMENT(){
 				fileStream>>tmp_valimg;
 				SRC_FIFO_OUT.write(tmp_valreal);
 				SRC_FIFO_OUT.write(tmp_valimg);
-			
 			}
 			
 			else

@@ -42,6 +42,7 @@ void FFT8::COMPORTEMENT(){
 
         i=0;
         while(i<15){
+            data_valid_out=false;  
             if(!data_valid_out&&(data_req_in)){ //when data is valid and the sink can read data, write the data to the port
                 out_real.write(data_out[i]);
                 i++;
@@ -50,7 +51,7 @@ void FFT8::COMPORTEMENT(){
                 i++;
             }  
             wait();
-            data_valid_out=false;               //set the valid to 0 after the next pos_clk
+        //    data_valid_out=false;               //set the valid to 0 after the next pos_clk
         } 
        
     }
