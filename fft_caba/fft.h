@@ -16,18 +16,18 @@
 //         W[3][0] = -47453133; 
 //         W[3][1] = -47453133;
 
-#define W {\
-	{67108863, 0}, \
-	{47453133, -47453133}, \
-	{0, -67108864}, \
-	{-47453133, -47453133}\
-}
+// #define W {\
+// 	{67108863, 0}, \
+// 	{47453133, -47453133}, \
+// 	{0, -67108864}, \
+// 	{-47453133, -47453133}\
+// }
 
 typedef struct complex_s complex_t;
 
 struct complex_s {
-	double real;
-	double imag;
+	sc_int< L > real;
+	sc_int< L > imag;
 };
 
 void fft(complex_t in[8], complex_t out[8]);

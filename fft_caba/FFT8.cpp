@@ -4,10 +4,24 @@
 
 using std::cout;
 using std::endl;
+#define L 23
+
+sc_int<27> W[4][4]={ 67108863, 0, 
+	47453133, -47453133, 
+	0, -67108864, 
+	-47453133, -47453133};
+
+
+// #define W {\
+// 	{67108863, 0}, \
+// 	{47453133, -47453133}, \
+// 	{0, -67108864}, \
+// 	{-47453133, -47453133}\
+// }
 
 void FFT8::COMPORTEMENT(){
-    double data_in[16];                         //to store the data received from the source
-    double data_out[16];                        //to send out the data calculated 
+    sc_int < 23 > data_in[16];                         //to store the data received from the source
+    sc_int < 27 >  data_out[16];                        //to send out the data calculated 
     complex_t in[8];                            //store the data received with the format complex_t
     complex_t out[8];                           //store the result by fft to send out
     data_valid_out=false;                       //initialize the signal valid and req
@@ -56,7 +70,7 @@ void FFT8::COMPORTEMENT(){
     }
 }
 
-complex_t weights[4] = W;
+//complex_t weights[4] = W;
 
 // void but(complex_t *weight,
 // 					complex_t *in0,
@@ -101,7 +115,7 @@ template <unsigned int N> void papillon(  sc_int<N> Wr, sc_int<N> Wi,
       mult_bii  = (bi * Wi);
 
       mult_brr_trunc =  mult_brr.range(2*N-2,N-1)+mult_brr[N-2];
-΅
+
       // car les W sont codes sur 1 bit de signe et N-1 bits pour la partie fractionnaire
       // et ont rajoute le bit de precision pour l'arrondi
       mult_bri_trunc =  mult_bri.range(2*N-2,N-1)+mult_bri[N-2];
@@ -120,13 +134,13 @@ void fft(complex_t in[8], complex_t out[8])
 	complex_t stage1[8], stage2[8];
 
 	// First stage
-	but(&weights[0], &in[0], &in[4], &stage1[0], &stage1[1]);
-	but(&weights[0], &in[2], &in[6], &stage1[2], &stage1[3]);
-	but(&weights[0], &in[1], &in[5], &stage1[4], &stage1[5]);
-	but(&weights[0], &in[3], &in[7], &stage1[6], &stage1[7]);
-    papillon<23> (W[0][0].range(26,4), W[0][1].range(26,4), 
+	// but(&weights[0], &in[0], &in[4], &stage1[0], &stage1[1]);
+	// but(&weights[0], &in[2], &in[6], &stage1[2], &stage1[3]);
+	// but(&weights[0], &in[1], &in[5], &stage1[4], &stage1[5]);
+	// but(&weights[0], &in[3], &in[7], &stage1[6], &stage1[7]);
+    papillon<23> ( W[0][0].range(26,4), W[0][1].range(26,4), 
         in[0].real, in[0].imag, in[4].real, in[4].imag,
-        stage1[0].real, stage1[0].imag, stage1[1].real, stage[1].imag);
+        stage1[0].real, stage1[0].imag, stage1[1].real, stage1[1].imag);
 
     papillon<23> (W[0][0].range(26,4), W[0][1].range(26,4), 
         in[2].real, in[2].imag, in[6].real, in[6].imag,
@@ -141,10 +155,10 @@ void fft(complex_t in[8], complex_t out[8])
         stage1[6].real, stage1[6].imag, stage1[7].real, stage1[7].imag);
 
 	// Second stage
-	but(&weights[0], &stage1[0], &stage1[2], &stage2[0], &stage2[2]);
-	but(&weights[2], &stage1[1], &stage1[3], &stage2[1], &stage2[3]);
-	but(&weights[0], &stage1[4], &stage1[6], &stage2[4], &stage2[6]);
-	but(&weights[2], &stage1[5], &stage1[7], &stage2[5], &stage2[7]);
+	// but(&weights[0], &stage1[0], &stage1[2], &stage2[0], &stage2[2]);
+	// but(&weights[2], &stage1[1], &stage1[3], &stage2[1], &stage2[3]);
+	// but(&weights[0], &stage1[4], &stage1[6], &stage2[4], &stage2[6]);
+	// but(&weights[2], &stage1[5], &stage1[7], &stage2[5], &stage2[7]);
 
     papillon<25> (W[0][0].range(26,2), W[0][1].range(26,2), 
         stage1[0].real, stage1[0].imag, stage1[2].real, stage1[2].imag,
@@ -163,8 +177,24 @@ void fft(complex_t in[8], complex_t out[8])
         stage2[5].real, stage2[5].imag, stage2[7].real, stage2[7].imag);
                 
 	// Etape 3
-	but(&weights[0], &stage2[0], &stage2[4], &out[0], &out[4]);
-	but(&weights[1], &stage2[1], &stage2[5], &out[1], &out[5]);
-	but(&weights[2], &stage2[2], &stage2[6], &out[2], &out[6]);
-	but(&weights[3], &stage2[3], &stage2[7], &out[3], &out[7]);
+	// but(&weights[0], &stage2[0], &stage2[4], &out[0], &out[4]);
+	// but(&weights[1], &stage2[1], &stage2[5], &out[1], &out[5]);
+	// but(&weights[2], &stage2[2], &stage2[6], &out[2], &out[6]);
+	// but(&weights[3], &stage2[3], &stage2[7], &out[3], &out[7]);
+
+    papillon<27> (W[0][0].range(26,0), W[0][1].range(26,0), 
+        stage2[0].real, stage2[0].imag, stage2[4].real, stage2[4].imag,
+        out[0].real, out[0].imag, out[4].real, out[4].imag);
+
+    papillon<27> (W[1][0].range(26,2), W[1][1].range(26,0), 
+        stage2[1].real, stage2[1].imag, stage2[5].real, stage2[5].imag,
+        out[1].real, out[1].imag, out[5].real, out[5].imag);
+
+    papillon<27> (W[2][0].range(26,2), W[2][1].range(26,0), 
+        stage2[2].real, stage2[2].imag, stage2[6].real, stage2[6].imag,
+        out[2].real, out[2].imag, out[6].real, out[6].imag);
+
+    papillon<27> (W[3][0].range(26,2), W[3][1].range(26,0), 
+        stage2[3].real, stage2[3].imag, stage2[7].real, stage2[7].imag,
+        out[3].real, out[3].imag, out[7].real, out[7].imag);
 }
