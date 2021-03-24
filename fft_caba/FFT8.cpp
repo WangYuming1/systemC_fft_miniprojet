@@ -22,7 +22,7 @@ sc_int<27> W[4][2]={ 67108863, 0,
 void FFT8::COMPORTEMENT(){
     sc_int < L > data_in[16];                         //to store the data received from the source
     sc_int < L+4 >  data_out[16];                        //to send out the data calculated 
-    complex_s in[8];                            //store the data received with the format complex_t
+    complex_s in[8];                            //store the data received with the format complex_s
     complex_t out[8];                           //store the result by fft to send out
     data_valid_out=false;                       //initialize the signal valid and req
     data_req_out=false;
@@ -70,23 +70,10 @@ void FFT8::COMPORTEMENT(){
     }
 }
 
-//complex_t weights[4] = W;
-
-// void but(complex_t *weight,
-// 					complex_t *in0,
-// 					complex_t *in1,
-// 					complex_t *out0,
-// 					complex_t *out1)
-// {
-//       out0->real = (in0->real + ((in1->real * weight->real) - (in1->imag * weight->imag)));
-//       out0->imag = (in0->imag + ((in1->real * weight->imag) + (in1->imag * weight->real)));
-//       out1->real = (in0->real - ((in1->real * weight->real) - (in1->imag * weight->imag)));
-//       out1->imag = (in0->imag - ((in1->real * weight->imag) + (in1->imag * weight->real)));
-// }
 
 
-template <unsigned int N> void papillon(  sc_int<N> Wr, sc_int<N> Wi, 
-                sc_int<N> ar, sc_int<N> ai,
+template <unsigned int N> void papillon(  sc_int<N> Wr, sc_int<N> Wi,           //ar+brWr-biWi, if the ar is 23 bits, brWr is 23 bits, ar+brWr can reach 24 bits, if the 
+                sc_int<N> ar, sc_int<N> ai,                                     // biWi is regarded as a plus, the result can reach 25 bits.
                 sc_int<N> br, sc_int<N> bi,
                 sc_int<N+2> &new_ar, sc_int<N+2> &new_ai,
                 sc_int<N+2> &new_br, sc_int<N+2> &new_bi)
@@ -139,10 +126,7 @@ void fft(complex_s in[8], complex_t out[8])
     sc_int<L+6> stage3_imag[8];
 
 	// First stage
-	// but(&weights[0], &in[0], &in[4], &stage1_real[0], &stage1_real[1]);
-	// but(&weights[0], &in[2], &in[6], &stage1_real[2], &stage1_real[3]);
-	// but(&weights[0], &in[1], &in[5], &stage1_real[4], &stage1_real[5]);
-	// but(&weights[0], &in[3], &in[7], &stage1_real[6], &stage1_real[7]);
+
     papillon<23> ( W[0][0].range(26,4), W[0][1].range(26,4), 
         in[0].real, in[0].imag, in[4].real, in[4].imag,
         stage1_real[0], stage1_imag[0], stage1_real[1], stage1_imag[1]);
@@ -160,10 +144,7 @@ void fft(complex_s in[8], complex_t out[8])
         stage1_real[6], stage1_imag[6], stage1_real[7], stage1_imag[7]);
 
 	// Second stage
-	// but(&weights[0], &stage1_real[0], &stage1_real[2], &stage2_real[0], &stage2_real[2]);
-	// but(&weights[2], &stage1_real[1], &stage1_real[3], &stage2_real[1], &stage2_real[3]);
-	// but(&weights[0], &stage1_real[4], &stage1_real[6], &stage2_real[4], &stage2_real[6]);
-	// but(&weights[2], &stage1_real[5], &stage1_real[7], &stage2_real[5], &stage2_real[7]);
+
 
     papillon<25> (W[0][0].range(26,2), W[0][1].range(26,2), 
         stage1_real[0], stage1_imag[0], stage1_real[2], stage1_imag[2],
@@ -182,10 +163,7 @@ void fft(complex_s in[8], complex_t out[8])
         stage2_real[5], stage2_imag[5], stage2_real[7], stage2_imag[7]);
                 
 	// Etape 3
-	// but(&weights[0], &stage2_real[0], &stage2_real[4], &out[0], &out[4]);
-	// but(&weights[1], &stage2_real[1], &stage2_real[5], &out[1], &out[5]);
-	// but(&weights[2], &stage2_real[2], &stage2_real[6], &out[2], &out[6]);
-	// but(&weights[3], &stage2_real[3], &stage2_real[7], &out[3], &out[7]);
+
 
     papillon<27> (W[0][0], W[0][1], 
         stage2_real[0], stage2_imag[0], stage2_real[4], stage2_imag[4],

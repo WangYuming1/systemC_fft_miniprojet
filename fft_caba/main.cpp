@@ -11,9 +11,7 @@ int sc_main ( int argc, char *argv[])
 	sc_trace_file *tf = sc_create_vcd_trace_file("trace");
 
 	tf->set_time_unit(1, SC_NS);
-	
-	
-	//To watch the wave.
+
 	sc_trace(tf,clk,"clk");
 	sc_trace(tf,mainTop.src_2_fft_valid,"src_2_fft_valid");
 	sc_trace(tf,mainTop.fft_2_src_req,"fft_2_src_req");
