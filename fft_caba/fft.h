@@ -1,6 +1,6 @@
 #ifndef __FFT_H__ 
 #define __FFT_H__ 
-
+#define L 23
 // #define W {\
 // 	{1, 0}, \
 // 	{0.7071067812, -0.7071067812}, \
@@ -23,13 +23,18 @@
 // 	{-47453133, -47453133}\
 // }
 
-typedef struct complex_s complex_t;
+//typedef struct complex_s complex_t;
 
 struct complex_s {
 	sc_int< L > real;
 	sc_int< L > imag;
 };
 
-void fft(complex_t in[8], complex_t out[8]);
+struct complex_t {
+	sc_int< L+4 > real;
+	sc_int< L+4 > imag;
+
+};
+void fft(complex_s in[8], complex_t out[8]);
 
 #endif

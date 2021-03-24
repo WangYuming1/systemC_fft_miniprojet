@@ -11,10 +11,10 @@ SC_MODULE(TOP){
     SINK sink;
     SOURCE source;
 
-    sc_signal<float> src_2_fft_real, src_2_fft_imag;
+    sc_signal< sc_int< L > > src_2_fft_real, src_2_fft_imag;
     sc_signal<bool> src_2_fft_valid, fft_2_src_req;
 
-    sc_signal<float> fft_2_sink_real, fft_2_sink_imag;
+    sc_signal< sc_int<L+4> > fft_2_sink_real, fft_2_sink_imag;
     sc_signal<bool> fft_2_sink_valid, sink_2_fft_req;
 
 

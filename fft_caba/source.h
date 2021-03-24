@@ -7,8 +7,8 @@ SC_MODULE(SOURCE){
 	
 	//sc_out<float> in_real;
 	sc_out< sc_int<L> > in_real, in_imag;
-	sc_in<bool> data_req;
-	sc_out<bool> data_valid;
+	sc_in<bool> data_req;					//data req from fft
+	sc_out<bool> data_valid;				//data valid flag to give to the fft.
 	sc_in_clk CLK;
 
 	SC_CTOR(SOURCE)

@@ -6,7 +6,7 @@ using std::cout;
 using std::endl;
 #define L 23
 
-sc_int<27> W[4][4]={ 67108863, 0, 
+sc_int<27> W[4][2]={ 67108863, 0, 
 	47453133, -47453133, 
 	0, -67108864, 
 	-47453133, -47453133};
@@ -20,9 +20,9 @@ sc_int<27> W[4][4]={ 67108863, 0,
 // }
 
 void FFT8::COMPORTEMENT(){
-    sc_int < 23 > data_in[16];                         //to store the data received from the source
-    sc_int < 27 >  data_out[16];                        //to send out the data calculated 
-    complex_t in[8];                            //store the data received with the format complex_t
+    sc_int < L > data_in[16];                         //to store the data received from the source
+    sc_int < L+4 >  data_out[16];                        //to send out the data calculated 
+    complex_s in[8];                            //store the data received with the format complex_t
     complex_t out[8];                           //store the result by fft to send out
     data_valid_out=false;                       //initialize the signal valid and req
     data_req_out=false;
@@ -129,72 +129,82 @@ template <unsigned int N> void papillon(  sc_int<N> Wr, sc_int<N> Wi,
     }
 
 
-void fft(complex_t in[8], complex_t out[8]) 
+void fft(complex_s in[8], complex_t out[8]) 
 {
-	complex_t stage1[8], stage2[8];
+    sc_int<L+2> stage1_real[8];
+    sc_int<L+2> stage1_imag[8];
+    sc_int<L+4> stage2_real[8];
+    sc_int<L+4> stage2_imag[8];
+    sc_int<L+6> stage3_real[8];
+    sc_int<L+6> stage3_imag[8];
 
 	// First stage
-	// but(&weights[0], &in[0], &in[4], &stage1[0], &stage1[1]);
-	// but(&weights[0], &in[2], &in[6], &stage1[2], &stage1[3]);
-	// but(&weights[0], &in[1], &in[5], &stage1[4], &stage1[5]);
-	// but(&weights[0], &in[3], &in[7], &stage1[6], &stage1[7]);
+	// but(&weights[0], &in[0], &in[4], &stage1_real[0], &stage1_real[1]);
+	// but(&weights[0], &in[2], &in[6], &stage1_real[2], &stage1_real[3]);
+	// but(&weights[0], &in[1], &in[5], &stage1_real[4], &stage1_real[5]);
+	// but(&weights[0], &in[3], &in[7], &stage1_real[6], &stage1_real[7]);
     papillon<23> ( W[0][0].range(26,4), W[0][1].range(26,4), 
         in[0].real, in[0].imag, in[4].real, in[4].imag,
-        stage1[0].real, stage1[0].imag, stage1[1].real, stage1[1].imag);
+        stage1_real[0], stage1_imag[0], stage1_real[1], stage1_imag[1]);
 
     papillon<23> (W[0][0].range(26,4), W[0][1].range(26,4), 
         in[2].real, in[2].imag, in[6].real, in[6].imag,
-        stage1[2].real, stage1[2].imag, stage1[3].real, stage1[3].imag);
+        stage1_real[2], stage1_imag[2], stage1_real[3], stage1_imag[3]);
 
     papillon<23> (W[0][0].range(26,4), W[0][1].range(26,4), 
         in[1].real, in[1].imag, in[5].real, in[5].imag,
-        stage1[4].real, stage1[4].imag, stage1[5].real, stage1[5].imag);
+        stage1_real[4], stage1_imag[4], stage1_real[5], stage1_imag[5]);
 
     papillon<23> (W[0][0].range(26,4), W[0][1].range(26,4), 
         in[3].real, in[3].imag, in[7].real, in[7].imag,
-        stage1[6].real, stage1[6].imag, stage1[7].real, stage1[7].imag);
+        stage1_real[6], stage1_imag[6], stage1_real[7], stage1_imag[7]);
 
 	// Second stage
-	// but(&weights[0], &stage1[0], &stage1[2], &stage2[0], &stage2[2]);
-	// but(&weights[2], &stage1[1], &stage1[3], &stage2[1], &stage2[3]);
-	// but(&weights[0], &stage1[4], &stage1[6], &stage2[4], &stage2[6]);
-	// but(&weights[2], &stage1[5], &stage1[7], &stage2[5], &stage2[7]);
+	// but(&weights[0], &stage1_real[0], &stage1_real[2], &stage2_real[0], &stage2_real[2]);
+	// but(&weights[2], &stage1_real[1], &stage1_real[3], &stage2_real[1], &stage2_real[3]);
+	// but(&weights[0], &stage1_real[4], &stage1_real[6], &stage2_real[4], &stage2_real[6]);
+	// but(&weights[2], &stage1_real[5], &stage1_real[7], &stage2_real[5], &stage2_real[7]);
 
     papillon<25> (W[0][0].range(26,2), W[0][1].range(26,2), 
-        stage1[0].real, stage1[0].imag, stage1[2].real, stage1[2].imag,
-        stage2[0].real, stage2[0].imag, stage2[2].real, stage2[2].imag);
+        stage1_real[0], stage1_imag[0], stage1_real[2], stage1_imag[2],
+        stage2_real[0], stage2_imag[0], stage2_real[2], stage2_imag[2]);
 
     papillon<25> (W[2][0].range(26,2), W[2][1].range(26,2), 
-        stage1[1].real, stage1[1].imag, stage1[3].real, stage1[3].imag,
-        stage2[1].real, stage2[1].imag, stage2[3].real, stage2[3].imag);
+        stage1_real[1], stage1_imag[1], stage1_real[3], stage1_imag[3],
+        stage2_real[1], stage2_imag[1], stage2_real[3], stage2_imag[3]);
 
     papillon<25> (W[0][0].range(26,2), W[0][1].range(26,2), 
-        stage1[4].real, stage1[4].imag, stage1[6].real, stage1[6].imag,
-        stage2[4].real, stage2[4].imag, stage2[6].real, stage2[6].imag);
+        stage1_real[4], stage1_imag[4], stage1_real[6], stage1_imag[6],
+        stage2_real[4], stage2_imag[4], stage2_real[6], stage2_imag[6]);
 
     papillon<25> (W[2][0].range(26,2), W[2][1].range(26,2), 
-        stage1[5].real, stage1[5].imag, stage1[7].real, stage1[7].imag,
-        stage2[5].real, stage2[5].imag, stage2[7].real, stage2[7].imag);
+        stage1_real[5], stage1_imag[5], stage1_real[7], stage1_imag[7],
+        stage2_real[5], stage2_imag[5], stage2_real[7], stage2_imag[7]);
                 
 	// Etape 3
-	// but(&weights[0], &stage2[0], &stage2[4], &out[0], &out[4]);
-	// but(&weights[1], &stage2[1], &stage2[5], &out[1], &out[5]);
-	// but(&weights[2], &stage2[2], &stage2[6], &out[2], &out[6]);
-	// but(&weights[3], &stage2[3], &stage2[7], &out[3], &out[7]);
+	// but(&weights[0], &stage2_real[0], &stage2_real[4], &out[0], &out[4]);
+	// but(&weights[1], &stage2_real[1], &stage2_real[5], &out[1], &out[5]);
+	// but(&weights[2], &stage2_real[2], &stage2_real[6], &out[2], &out[6]);
+	// but(&weights[3], &stage2_real[3], &stage2_real[7], &out[3], &out[7]);
 
-    papillon<27> (W[0][0].range(26,0), W[0][1].range(26,0), 
-        stage2[0].real, stage2[0].imag, stage2[4].real, stage2[4].imag,
-        out[0].real, out[0].imag, out[4].real, out[4].imag);
+    papillon<27> (W[0][0], W[0][1], 
+        stage2_real[0], stage2_imag[0], stage2_real[4], stage2_imag[4],
+        stage3_real[0], stage3_imag[0], stage3_real[4], stage3_imag[4]);
 
-    papillon<27> (W[1][0].range(26,2), W[1][1].range(26,0), 
-        stage2[1].real, stage2[1].imag, stage2[5].real, stage2[5].imag,
-        out[1].real, out[1].imag, out[5].real, out[5].imag);
+    papillon<27> (W[1][0], W[1][1], 
+        stage2_real[1], stage2_imag[1], stage2_real[5], stage2_imag[5],
+        stage3_real[1], stage3_imag[1], stage3_real[5], stage3_imag[5]);
 
-    papillon<27> (W[2][0].range(26,2), W[2][1].range(26,0), 
-        stage2[2].real, stage2[2].imag, stage2[6].real, stage2[6].imag,
-        out[2].real, out[2].imag, out[6].real, out[6].imag);
+    papillon<27> (W[2][0], W[2][1], 
+        stage2_real[2], stage2_imag[2], stage2_real[6], stage2_imag[6],
+        stage3_real[2], stage3_imag[2], stage3_real[6], stage3_imag[6]);
 
-    papillon<27> (W[3][0].range(26,2), W[3][1].range(26,0), 
-        stage2[3].real, stage2[3].imag, stage2[7].real, stage2[7].imag,
-        out[3].real, out[3].imag, out[7].real, out[7].imag);
+    papillon<27> (W[3][0], W[3][1], 
+        stage2_real[3], stage2_imag[3], stage2_real[7], stage2_imag[7],
+        stage3_real[3], stage3_imag[3], stage3_real[7], stage3_imag[7]);
+
+    for (int i=0; i<8; i++){
+        out[i].real=stage3_real[i].range(26,0);
+        out[i].imag=stage3_imag[i].range(26,0);
+    }
 }

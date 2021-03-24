@@ -8,7 +8,7 @@ using std::endl;
 void SINK::COMPORTEMENT(){
 
 	std::ofstream fileStream("out_samples.txt");
-	float tmp_valreal, tmp_valimg;
+	sc_int < L> tmp_valreal, tmp_valimg;			//L here is 27 wrote in the sink.h
 
 	if(!fileStream)
 		cout<<"le fichier ne peut pas etre trouve"<<endl;
@@ -28,10 +28,7 @@ void SINK::COMPORTEMENT(){
 			fileStream << tmp_valreal;
 			fileStream <<" "<<tmp_valimg<< endl;
 			count++;
-			
 		}
-		
 		wait();
-		data_req=false;								//after reading the data and writing in the fiche, at the pos_clk set data_req to 0;
 	}
 }
